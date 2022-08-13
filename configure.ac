@@ -5,7 +5,7 @@ AC_INIT([mate-sensors-applet],
         [https://github.com/Libre-MATE/mate-sensors-applet/issues],
         [mate-sensors-applet],
         [https://github.com/Libre-MATE/mate-sensors-applet/])
-
+AC_COPYRIGHT([Copyright (C) 2022 Libre MATE])
 AC_CONFIG_SRCDIR([sensors-applet/main.c])
 AC_CONFIG_HEADERS([sensors-applet/config.h])
 AC_CONFIG_MACRO_DIR([m4])
