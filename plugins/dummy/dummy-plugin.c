@@ -21,11 +21,12 @@
 /* Dummy plugin to be able to test msa in a VM */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#include <time.h>
 #include <stdlib.h>
+#include <time.h>
+
 #include "dummy-plugin.h"
 
 // remove // from next line for syslog debug
@@ -38,84 +39,57 @@
 const gchar *plugin_name = "dummy";
 
 static void dummy_plugin_get_sensors(GList **sensors) {
+  /* dummy HDD temp sensor */
+  sensors_applet_plugin_add_sensor(
+      sensors, "/sys/devices/platform/it87.656/hwmon/hwmon1/temp2_input",
+      "temp2", "CPU", TEMP_SENSOR, TRUE, CPU_ICON, DEFAULT_GRAPH_COLOR);
 
-    /* dummy HDD temp sensor */
-    sensors_applet_plugin_add_sensor(sensors,
-                                     "/sys/devices/platform/it87.656/hwmon/hwmon1/temp2_input",
-                                     "temp2",
-                                     "CPU",
-                                     TEMP_SENSOR,
-                                     TRUE,
-                                     CPU_ICON,
-                                     DEFAULT_GRAPH_COLOR);
+  /* dummy HDD temp sensor */
+  sensors_applet_plugin_add_sensor(
+      sensors, "/sys/devices/platform/it87.656/hwmon/hwmon1/fan1_input", "fan1",
+      "fan1", FAN_SENSOR, TRUE, FAN_ICON, DEFAULT_GRAPH_COLOR);
 
-    /* dummy HDD temp sensor */
-    sensors_applet_plugin_add_sensor(sensors,
-                                     "/sys/devices/platform/it87.656/hwmon/hwmon1/fan1_input",
-                                     "fan1",
-                                     "fan1",
-                                     FAN_SENSOR,
-                                     TRUE,
-                                     FAN_ICON,
-                                     DEFAULT_GRAPH_COLOR);
-
-    /* dummy HDD temp sensor */
-    sensors_applet_plugin_add_sensor(sensors,
-                                     "HDD 2154884654-5648HG-546821",
-                                     "Disk Temperature",
-                                     "HDD 2154884654",
-                                     TEMP_SENSOR,
-                                     TRUE,
-                                     HDD_ICON,
-                                     DEFAULT_GRAPH_COLOR);
-
+  /* dummy HDD temp sensor */
+  sensors_applet_plugin_add_sensor(
+      sensors, "HDD 2154884654-5648HG-546821", "Disk Temperature",
+      "HDD 2154884654", TEMP_SENSOR, TRUE, HDD_ICON, DEFAULT_GRAPH_COLOR);
 }
 
 /* this is the function called every refresh cycle */
-static gdouble dummy_plugin_get_sensor_value(const gchar *path,
-                                             const gchar *id,
-                                             SensorType type,
-                                             GError **error) {
+static gdouble dummy_plugin_get_sensor_value(const gchar *path, const gchar *id,
+                                             SensorType type, GError **error) {
+  switch (type) {
+    case TEMP_SENSOR:
+      return (gdouble)(rand() % 40 + 20);
+      break;
 
-    switch (type) {
-        case TEMP_SENSOR:
-            return (gdouble) (rand() % 40 + 20);
-            break;
+    case FAN_SENSOR:
+      return (gdouble)(rand() % 3000);
+      break;
 
-        case FAN_SENSOR:
-            return (gdouble) (rand() % 3000);
-            break;
-
-        default:
-            g_assert_not_reached();
-    }
-
+    default:
+      g_assert_not_reached();
+  }
 }
 
 /* API functions */
-const gchar *sensors_applet_plugin_name(void) {
-    return plugin_name;
-}
+const gchar *sensors_applet_plugin_name(void) { return plugin_name; }
 
 static GList *dummy_plugin_init(void) {
-    GList *sensors = NULL;
+  GList *sensors = NULL;
 
-    /* init random number generation */
-    srand(time(NULL));
+  /* init random number generation */
+  srand(time(NULL));
 
-    dummy_plugin_get_sensors(&sensors);
+  dummy_plugin_get_sensors(&sensors);
 
-    return sensors;
+  return sensors;
 }
 
-GList *sensors_applet_plugin_init(void) {
-    return dummy_plugin_init();
-}
+GList *sensors_applet_plugin_init(void) { return dummy_plugin_init(); }
 
 gdouble sensors_applet_plugin_get_sensor_value(const gchar *path,
-                                               const gchar *id,
-                                               SensorType type,
+                                               const gchar *id, SensorType type,
                                                GError **error) {
-
-    return dummy_plugin_get_sensor_value(path, id, type, error);
+  return dummy_plugin_get_sensor_value(path, id, type, error);
 }

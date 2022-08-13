@@ -20,12 +20,11 @@
 #ifndef ACTIVE_SENSOR_LIBNOTIFY_H
 #define ACTIVE_SENSOR_LIBNOTIFY_H
 
-#include "sensors-applet.h"
 #include "active-sensor.h"
+#include "sensors-applet.h"
 
 void active_sensor_libnotify_notify(ActiveSensor *active_sensor,
-                                    NotifType notif_type,
-                                    const gchar *summary,
+                                    NotifType notif_type, const gchar *summary,
                                     const gchar *message,
                                     const gchar *icon_filename,
                                     gint timeout_msecs);

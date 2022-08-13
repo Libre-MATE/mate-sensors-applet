@@ -31,7 +31,7 @@ typedef gdouble (*SensorsAppletPluginGetSensorValue)(const gchar *path,
 
 void sensors_applet_plugins_load_all(SensorsApplet *sensors_applet);
 void sensors_applet_plugins_unload_all(SensorsApplet *sensors_applet);
-SensorsAppletPluginGetSensorValue sensors_applet_plugins_get_sensor_value_func(SensorsApplet *sensors_applet,
-                                                                               const gchar *plugin);
+SensorsAppletPluginGetSensorValue sensors_applet_plugins_get_sensor_value_func(
+    SensorsApplet *sensors_applet, const gchar *plugin);
 
-#endif // SENSORS_APPLET_PLUGINS_H
+#endif  // SENSORS_APPLET_PLUGINS_H

@@ -18,32 +18,29 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif /* HAVE_CONFIG_H */
 
 #include <mate-panel-applet.h>
 #include <string.h>
+
 #include "sensors-applet.h"
 
-static gboolean sensors_applet_fill(MatePanelApplet *applet,
-                                    const gchar *iid,
+static gboolean sensors_applet_fill(MatePanelApplet *applet, const gchar *iid,
                                     gpointer data) {
+  gboolean retval = FALSE;
 
-    gboolean retval = FALSE;
+  if (strcmp(iid, "SensorsApplet") == 0) {
+    SensorsApplet *sensors_applet;
 
-    if (strcmp(iid, "SensorsApplet") == 0) {
-        SensorsApplet *sensors_applet;
-
-        sensors_applet = g_new0(SensorsApplet, 1);
-        sensors_applet->applet = applet;
-        sensors_applet_init(sensors_applet);
-        retval = TRUE;
-    }
-    return retval;
+    sensors_applet = g_new0(SensorsApplet, 1);
+    sensors_applet->applet = applet;
+    sensors_applet_init(sensors_applet);
+    retval = TRUE;
+  }
+  return retval;
 }
 
-MATE_PANEL_APPLET_OUT_PROCESS_FACTORY ("SensorsAppletFactory",
-                                       PANEL_TYPE_APPLET,
-                                       "SensorsApplet",
-                                       sensors_applet_fill,
-                                       NULL);
+MATE_PANEL_APPLET_OUT_PROCESS_FACTORY("SensorsAppletFactory", PANEL_TYPE_APPLET,
+                                      "SensorsApplet", sensors_applet_fill,
+                                      NULL);

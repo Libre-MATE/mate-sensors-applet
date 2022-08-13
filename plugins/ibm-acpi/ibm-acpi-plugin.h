@@ -23,4 +23,3 @@
 #include <sensors-applet/sensors-applet-plugin.h>
 
 #endif /* IBM_ACPI_PLUGIN_H */
-

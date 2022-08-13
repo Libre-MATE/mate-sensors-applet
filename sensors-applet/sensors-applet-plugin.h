@@ -33,38 +33,26 @@ GQuark sensors_applet_plugin_error_quark(void);
  */
 GList *sensors_applet_plugin_init(void);
 gdouble sensors_applet_plugin_get_sensor_value(const gchar *path,
-                                               const gchar *id,
-                                               SensorType type,
+                                               const gchar *id, SensorType type,
                                                GError **error);
 
 typedef void SensorsAppletPluginTestSensorFunc(GList **sensors,
                                                const gchar *path);
-void sensors_applet_plugin_find_sensors(GList **sensors,
-                                        const gchar *path,
+void sensors_applet_plugin_find_sensors(GList **sensors, const gchar *path,
                                         SensorsAppletPluginTestSensorFunc);
 
 void sensors_applet_plugin_default_sensor_limits(SensorType type,
                                                  gdouble *low_value,
                                                  gdouble *high_value);
 
-void sensors_applet_plugin_add_sensor(GList **sensors,
-                                      const gchar *path,
-                                      const gchar *id,
-                                      const gchar *label,
-                                      SensorType type,
-                                      gboolean enable,
-                                      IconType icon,
-                                      const gchar *graph_color);
+void sensors_applet_plugin_add_sensor(GList **sensors, const gchar *path,
+                                      const gchar *id, const gchar *label,
+                                      SensorType type, gboolean enable,
+                                      IconType icon, const gchar *graph_color);
 
-void sensors_applet_plugin_add_sensor_with_limits(GList **sensors,
-                                                  const gchar *path,
-                                                  const gchar *id,
-                                                  const gchar *label,
-                                                  SensorType type,
-                                                  gboolean enable,
-                                                  gdouble low_value,
-                                                  gdouble high_value,
-                                                  IconType icon,
-                                                  const gchar *graph_color);
+void sensors_applet_plugin_add_sensor_with_limits(
+    GList **sensors, const gchar *path, const gchar *id, const gchar *label,
+    SensorType type, gboolean enable, gdouble low_value, gdouble high_value,
+    IconType icon, const gchar *graph_color);
 
-#endif // SENSORS_APPLET_PLUGIN_H
+#endif  // SENSORS_APPLET_PLUGIN_H
