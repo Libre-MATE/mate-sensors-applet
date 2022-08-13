@@ -16,6 +16,7 @@ MATE_COMPILE_WARNINGS
 
 # ============== basic compiler settings ============= #
 AC_PROG_CC
+AC_PROG_SED
 LT_INIT
 
 # =========== take care of some localization ========= #
