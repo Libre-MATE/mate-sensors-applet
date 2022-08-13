@@ -1,7 +1,10 @@
 # ================= initialization =================== #
 
-AC_INIT([mate-sensors-applet], [1.26.0], [https://github.com/mate-desktop/mate-sensors-applet/issues],
-        [mate-sensors-applet], [https://mate-desktop.org])
+AC_INIT([mate-sensors-applet],
+        [1.26.0],
+        [https://github.com/Libre-MATE/mate-sensors-applet/issues],
+        [mate-sensors-applet],
+        [https://github.com/Libre-MATE/mate-sensors-applet/])
 
 AC_CONFIG_SRCDIR([sensors-applet/main.c])
 AC_CONFIG_HEADERS([sensors-applet/config.h])
