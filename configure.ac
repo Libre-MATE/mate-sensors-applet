@@ -16,7 +16,6 @@ MATE_COMPILE_WARNINGS
 
 # ============== basic compiler settings ============= #
 AC_PROG_CC
-AC_HEADER_STDC
 
 # =================== for plugins ==================== #
 AC_PROG_LIBTOOL
