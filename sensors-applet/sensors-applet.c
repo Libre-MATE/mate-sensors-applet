@@ -882,7 +882,6 @@ gboolean sensors_applet_add_sensor(
   gchar *sensor_path;
   SensorType sensor_type;
   GdkPixbuf *icon;
-  GtkTreePath *tree_path;
 
   g_assert(sensors_applet);
 
@@ -1045,6 +1044,8 @@ gboolean sensors_applet_add_sensor(
 
   /* create the active sensor */
   if (enable) {
+    GtkTreePath *tree_path;
+
     tree_path = gtk_tree_model_get_path(GTK_TREE_MODEL(sensors_applet->sensors),
                                         &sensors_iter);
     sensors_applet_sensor_enabled(sensors_applet, tree_path);
@@ -1055,12 +1056,11 @@ gboolean sensors_applet_add_sensor(
 
 static ActiveSensor *sensors_applet_find_active_sensor(
     SensorsApplet *sensors_applet, GtkTreePath *path) {
-  GtkTreePath *sensor_tree_path;
   GList *current_sensor;
 
   for (current_sensor = sensors_applet->active_sensors; current_sensor != NULL;
        current_sensor = g_list_next(current_sensor)) {
-    sensor_tree_path = gtk_tree_row_reference_get_path(
+    GtkTreePath *sensor_tree_path = gtk_tree_row_reference_get_path(
         ((ActiveSensor *)(current_sensor->data))->sensor_row);
 
     if (gtk_tree_path_compare(path, sensor_tree_path) == 0) {
